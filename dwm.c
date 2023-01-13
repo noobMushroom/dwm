@@ -636,8 +636,6 @@ configurerequest(XEvent *e)
 Monitor *
 createmon(void)
 {
-
-	int gappx = 5;            /* gaps between windows */
 	Monitor *m;
 	m = ecalloc(1, sizeof(Monitor));
 	m->tagset[0] = m->tagset[1] = 1;
