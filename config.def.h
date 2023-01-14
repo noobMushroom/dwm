@@ -1,22 +1,35 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
+#include <X11/XF86keysym.h>
+/* Add somewhere in your constants definition section */
+
+static const char *upvol[] = { "/usr/bin/amixer", "set", "Master", "5%+", NULL };
+static const char *downvol[] = { "/usr/bin/amixer", "set", "Master", "5%-", NULL };
+static const char *mutevol[] = { "/usr/bin/amixerl", "set", "Master", "toggle", NULL };
+
+/* To use light add this to the constant definition section. Thanks Hritik14. */
+static const char *light_up[] = {"/usr/bin/light", "-A", "5", NULL};
+static const char *light_down[] = {"/usr/bin/light", "-U", "5", NULL};
 static const unsigned int borderpx  = 2;        /* border pixel of windows */
 static const unsigned int gappx     = 10;        /* gaps between windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "monospace:size=20" };
+static const char *fonts[]          = { "monospace:size=14" };
 static const char dmenufont[]       = "monospace:size=16";
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
 static const char col_gray4[]       = "#eeeeee";
+static const char col_red[]         = "#940000";
+static const char col_brightred[]         = "#940000";
+static const char col_lightred[]         = "#940000";
 static const char col_cyan[]        = "#005577";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
-	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
+	[SchemeNorm] = { col_gray4, col_cyan,  col_cyan},
+	[SchemeSel]  = { col_red, col_brightred, col_lightred   },
 };
 
 /* tagging */
@@ -46,7 +59,6 @@ static const Layout layouts[] = {
 	{ "|M|",      centeredmaster },
 	{ ">M>",      centeredfloatingmaster },
 };
-
 /* key definitions */
 #define MODKEY Mod4Mask
 #define TAGKEYS(KEY,TAG) \
@@ -66,6 +78,7 @@ static const char *termcmd[]  = { "alacritty", NULL };
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
+
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
@@ -93,6 +106,16 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_minus,  setgaps,        {.i = -1 } },
 	{ MODKEY,                       XK_equal,  setgaps,        {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_equal,  setgaps,        {.i = 0  } },
+	{ 0,                       XF86XK_AudioLowerVolume, spawn, {.v = downvol } },
+	{ 0,                       XF86XK_AudioMute, spawn, {.v = mutevol } },
+	{ 0,                       XF86XK_AudioRaiseVolume, spawn, {.v = upvol   } },
+	{ MODKEY,                       XK_F11, spawn, {.v = downvol } },
+	{ MODKEY,                       XK_F9,  spawn, {.v = mutevol } },
+	{ MODKEY,                       XK_F12, spawn, {.v = upvol   } },
+	{ 0,				XF86XK_MonBrightnessUp,		spawn,	{.v = light_up} },
+	{ 0,				XF86XK_MonBrightnessDown,	spawn,	{.v = light_down} },
+	{ MODKEY,				XK_F7,		spawn,	{.v = light_up} },
+	{ MODKEY,				XK_8,	spawn,	{.v = light_down} },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
