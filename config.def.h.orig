@@ -128,6 +128,12 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
+<<<<<<< HEAD
+=======
+	{ MODKEY,                       XK_minus,  setgaps,        {.i = -1 } },
+	{ MODKEY,                       XK_equal,  setgaps,        {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_equal,  setgaps,        {.i = 0  } },
+>>>>>>> a930f24916e786cfa5bfad2d3413783c72b75404
 	{ MODKEY,                       XK_F2, spawn, {.v = downvol } },
 	{ MODKEY,                       XK_F1,  spawn, {.v = mutevol } },
 	{ MODKEY,                       XK_F3, spawn, {.v = upvol   } },
