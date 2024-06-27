@@ -3,6 +3,7 @@
 /* appearance */
 #include "/home/mushroom/.cache/wal/colors-wal-dwm.h"
 static const unsigned int borderpx = 1; /* border pixel of windows */
+static const unsigned int gappx = 5;    /* gaps between windows */
 static const unsigned int snap = 32;    /* snap pixel */
 static const int swallowfloating =
     0;                        /* 1 means swallow floating windows by default */
@@ -33,6 +34,7 @@ static const Rule rules[] = {
     {"Gimp", NULL, NULL, 0, 1, 0, 0, -1},
     {"Firefox", NULL, NULL, 1 << 8, 0, 0, -1, -1},
     {"St", NULL, NULL, 0, 0, 1, 0, -1},
+    {"feh", NULL, NULL, 0, 0, 1, 0, -1},
     {NULL, NULL, "Event Tester", 0, 0, 0, 1, -1}, /* xev */
 };
 
@@ -114,6 +116,11 @@ static const Key keys[] = {
     // for screenshots
     {0, XK_Print, spawn, {.v = screenshot_full_screen}},
     {ControlMask, XK_Print, spawn, {.v = screenshot_selection}},
+
+    // For gaps
+    {MODKEY, XK_minus, setgaps, {.i = -1}},
+    {MODKEY, XK_equal, setgaps, {.i = +1}},
+    {MODKEY | ShiftMask, XK_equal, setgaps, {.i = 0}},
 
     TAGKEYS(XK_1, 0) TAGKEYS(XK_2, 1) TAGKEYS(XK_3, 2) TAGKEYS(XK_4, 3)
         TAGKEYS(XK_5, 4) TAGKEYS(XK_6, 5) TAGKEYS(XK_7, 6) TAGKEYS(XK_8, 7)
