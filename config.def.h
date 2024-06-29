@@ -100,25 +100,12 @@ static const char *screenshot_selection[] = {
  * Xresources preferences to load at startup
  */
 ResourcePref resources[] = {
-    {"c1", STRING, &normbgcolor},
-    {"c2", STRING, &normbordercolor},
-    {"c3", STRING, &normfgcolor},
-    {"c4", STRING, &selbgcolor},
-    {"c5", STRING, &selbordercolor},
-    {"c6", STRING, &selfgcolor},
     {"normbgcolor", STRING, &normbgcolor},
     {"normbordercolor", STRING, &normbordercolor},
     {"normfgcolor", STRING, &normfgcolor},
     {"selbgcolor", STRING, &selbgcolor},
     {"selbordercolor", STRING, &selbordercolor},
     {"selfgcolor", STRING, &selfgcolor},
-    {"borderpx", INTEGER, &borderpx},
-    {"snap", INTEGER, &snap},
-    {"showbar", INTEGER, &showbar},
-    {"topbar", INTEGER, &topbar},
-    {"nmaster", INTEGER, &nmaster},
-    {"resizehints", INTEGER, &resizehints},
-    {"mfact", FLOAT, &mfact},
 };
 
 static const Key keys[] = {
