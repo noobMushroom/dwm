@@ -1,23 +1,29 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-#include "/home/mushroom/.cache/wal/colors-wal-dwm.h"
-static const unsigned int borderpx = 1; /* border pixel of windows */
-static const unsigned int gappx = 5;    /* gaps between windows */
-static const unsigned int snap = 32;    /* snap pixel */
+// #include "/home/mushroom/.cache/wal/colors-wal-dwm.h"
+static unsigned int borderpx = 1;    /* border pixel of windows */
+static unsigned int snap = 32;       /* snap pixel */
+static int showbar = 1;              /* 0 means no bar */
+static int topbar = 1;               /* 0 means bottom bar */
+static const unsigned int gappx = 5; /* gaps between windows */
 static const int swallowfloating =
-    0;                        /* 1 means swallow floating windows by default */
-static const int showbar = 1; /* 0 means no bar */
-static const int topbar = 1;  /* 0 means bottom bar */
+    0; /* 1 means swallow floating windows by default */
 static const char *fonts[] = {
     "JetBrains Mono:size=11",
     "JoyPixels:pixelsize=11:antialias=true:autohint=true"};
 static const char dmenufont[] = "monospace:size=10";
-static const char col_gray1[] = "#222222";
-static const char col_gray2[] = "#444444";
-static const char col_gray3[] = "#bbbbbb";
-static const char col_gray4[] = "#eeeeee";
-static const char col_cyan[] = "#005577";
+static char normbgcolor[] = "#222222";
+static char normbordercolor[] = "#444444";
+static char normfgcolor[] = "#bbbbbb";
+static char selfgcolor[] = "#eeeeee";
+static char selbordercolor[] = "#005577";
+static char selbgcolor[] = "#005577";
+static char *colors[][3] = {
+    /*               fg           bg           border   */
+    [SchemeNorm] = {normfgcolor, normbgcolor, normbordercolor},
+    [SchemeSel] = {selfgcolor, selbgcolor, selbordercolor},
+};
 // static const char *colors[][3] = {
 /*               fg         bg         border   */
 /* [SchemeNorm] = {col_gray3, col_gray1, col_gray2},
@@ -41,10 +47,9 @@ static const Rule rules[] = {
 };
 
 /* layout(s) */
-static const float mfact = 0.55; /* factor of master area size [0.05..0.95] */
-static const int nmaster = 1;    /* number of clients in master area */
-static const int resizehints =
-    1; /* 1 means respect size hints in tiled resizals */
+static float mfact = 0.55;  /* factor of master area size [0.05..0.95] */
+static int nmaster = 1;     /* number of clients in master area */
+static int resizehints = 1; /* 1 means respect size hints in tiled resizals */
 static const int lockfullscreen =
     1; /* 1 will force focus on the fullscreen window */
 
@@ -90,6 +95,32 @@ static const char *screenshot_full_screen[] = {
 static const char *screenshot_selection[] = {
     "scrot", "-s",
     "/home/mushroom/Pictures/screenshots/%Y-%m-%d-%H:%M:%S_$wx$h.png", NULL};
+
+/*
+ * Xresources preferences to load at startup
+ */
+ResourcePref resources[] = {
+    {"c1", STRING, &normbgcolor},
+    {"c2", STRING, &normbordercolor},
+    {"c3", STRING, &normfgcolor},
+    {"c4", STRING, &selbgcolor},
+    {"c5", STRING, &selbordercolor},
+    {"c6", STRING, &selfgcolor},
+    {"normbgcolor", STRING, &normbgcolor},
+    {"normbordercolor", STRING, &normbordercolor},
+    {"normfgcolor", STRING, &normfgcolor},
+    {"selbgcolor", STRING, &selbgcolor},
+    {"selbordercolor", STRING, &selbordercolor},
+    {"selfgcolor", STRING, &selfgcolor},
+    {"borderpx", INTEGER, &borderpx},
+    {"snap", INTEGER, &snap},
+    {"showbar", INTEGER, &showbar},
+    {"topbar", INTEGER, &topbar},
+    {"nmaster", INTEGER, &nmaster},
+    {"resizehints", INTEGER, &resizehints},
+    {"mfact", FLOAT, &mfact},
+};
+
 static const Key keys[] = {
     /* modifier                     key        function        argument */
     {MODKEY, XK_p, spawn, {.v = roficmd}},
@@ -145,4 +176,12 @@ static const Button buttons[] = {
     {ClkTagBar, 0, Button3, toggleview, {0}},
     {ClkTagBar, MODKEY, Button1, tag, {0}},
     {ClkTagBar, MODKEY, Button3, toggletag, {0}},
+};
+
+/* signal definitions */
+/* signum must be greater than 0 */
+/* trigger signals using `xsetroot -name "fsignal:<signum>"` */
+static Signal signals[] = {
+    /* signum       function        argument  */
+    {1, reload_xresources, {.v = NULL}},
 };
