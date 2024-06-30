@@ -1,5 +1,5 @@
 /* See LICENSE file for copyright and license details. */
-
+#include <X11/XF86keysym.h>
 /* appearance */
 // #include "/home/mushroom/.cache/wal/colors-wal-dwm.h"
 static unsigned int borderpx = 1;    /* border pixel of windows */
@@ -31,7 +31,8 @@ static char *colors[][3] = {
 // } */;
 
 /* tagging */
-static const char *tags[] = {"1", "2", "3", "4", "5", "6", "7", "8", "9"};
+// static const char *tags[] = {"1", "2", "3", "4", "5", "6", "7", "8", "9"};
+static const char *tags[] = {"1", "2", "3", "4", "5", "6"};
 
 static const Rule rules[] = {
     /* xprop(1):
@@ -112,7 +113,7 @@ static const Key keys[] = {
     /* modifier                     key        function        argument */
     {MODKEY, XK_p, spawn, {.v = roficmd}},
     {MODKEY | ShiftMask, XK_Return, spawn, {.v = termcmd}},
-    {MODKEY, XK_b, togglebar, {0}},
+    {MODKEY | ShiftMask, XK_b, togglebar, {0}},
     {MODKEY, XK_j, focusstack, {.i = +1}},
     {MODKEY, XK_k, focusstack, {.i = -1}},
     {MODKEY, XK_i, incnmaster, {.i = +1}},
@@ -133,6 +134,31 @@ static const Key keys[] = {
     {MODKEY, XK_period, focusmon, {.i = +1}},
     {MODKEY | ShiftMask, XK_comma, tagmon, {.i = -1}},
     {MODKEY | ShiftMask, XK_period, tagmon, {.i = +1}},
+
+    // For volume controls
+    {0, XF86XK_AudioRaiseVolume, spawn,
+     SHCMD("pamixer -i 2; pkill -RTMIN+10 dwmblocks")},
+    {0, XF86XK_AudioLowerVolume, spawn,
+     SHCMD("pamixer -d 2; pkill -RTMIN+10 dwmblocks")},
+    {0, XF86XK_AudioMute, spawn,
+     SHCMD("pamixer -t; pkill -RTMIN+10 dwmblocks")},
+
+    // For display brightness
+    {0, XF86XK_MonBrightnessDown, spawn, SHCMD("light -U 2")},
+    {0, XF86XK_MonBrightnessUp, spawn, SHCMD("light -A 2")},
+
+    // slock
+    {MODKEY, XK_x, spawn, SHCMD("slock")},
+
+    // Keepassxc
+    {MODKEY | ShiftMask, XK_p, spawn, SHCMD("keepassxc")},
+
+    // Powermenu
+    {MODKEY | ControlMask, XK_p, spawn, SHCMD("~/.config/rofi/powermenu.sh")},
+
+    // Brave
+    {MODKEY, XK_b, spawn, SHCMD("brave")},
+
     // for screenshots
     {0, XK_Print, spawn, {.v = screenshot_full_screen}},
     {ControlMask, XK_Print, spawn, {.v = screenshot_selection}},
@@ -141,10 +167,8 @@ static const Key keys[] = {
     {MODKEY, XK_minus, setgaps, {.i = -1}},
     {MODKEY, XK_equal, setgaps, {.i = +1}},
     {MODKEY | ShiftMask, XK_equal, setgaps, {.i = 0}},
-
     TAGKEYS(XK_1, 0) TAGKEYS(XK_2, 1) TAGKEYS(XK_3, 2) TAGKEYS(XK_4, 3)
-        TAGKEYS(XK_5, 4) TAGKEYS(XK_6, 5) TAGKEYS(XK_7, 6) TAGKEYS(XK_8, 7)
-            TAGKEYS(XK_9, 8){MODKEY | ShiftMask, XK_q, quit, {0}},
+        TAGKEYS(XK_5, 4) TAGKEYS(XK_6, 5){MODKEY | ShiftMask, XK_q, quit, {0}},
 };
 
 /* button definitions */
