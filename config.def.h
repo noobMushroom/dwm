@@ -10,7 +10,7 @@ static const unsigned int gappx = 5; /* gaps between windows */
 static const int swallowfloating =
     0; /* 1 means swallow floating windows by default */
 static const char *fonts[] = {
-    "JetBrains Mono:size=11",
+    "SourceCodePro-Medium:size=11",
     "JoyPixels:pixelsize=11:antialias=true:autohint=true"};
 static const char dmenufont[] = "monospace:size=10";
 static char normbgcolor[] = "#222222";
@@ -32,7 +32,7 @@ static char *colors[][3] = {
 
 /* tagging */
 // static const char *tags[] = {"1", "2", "3", "4", "5", "6", "7", "8", "9"};
-static const char *tags[] = {"1", "2", "3", "4", "5", "6"};
+static const char *tags[] = {"", "", "3", "4", "5", "6"};
 
 static const Rule rules[] = {
     /* xprop(1):
@@ -87,7 +87,7 @@ static const char *roficmd[] = {"rofi",
                                 "-theme",
                                 "~/.config/rofi/launchers/type-6/style-9.rasi",
                                 NULL};
-static const char *termcmd[] = {"alacritty", NULL};
+static const char *termcmd[] = {"kitty", NULL};
 
 static const char *screenshot_full_screen[] = {
     "scrot", "-q", "1",
@@ -144,8 +144,10 @@ static const Key keys[] = {
      SHCMD("pamixer -t; pkill -RTMIN+10 dwmblocks")},
 
     // For display brightness
-    {0, XF86XK_MonBrightnessDown, spawn, SHCMD("light -U 2")},
-    {0, XF86XK_MonBrightnessUp, spawn, SHCMD("light -A 2")},
+    {0, XF86XK_MonBrightnessDown, spawn,
+     SHCMD("light -U 2; pkill -RTMIN+20 dwmblocks")},
+    {0, XF86XK_MonBrightnessUp, spawn,
+     SHCMD("light -A 2; pkill -RTMIN+20 dwmblocks")},
 
     // slock
     {MODKEY, XK_x, spawn, SHCMD("slock")},

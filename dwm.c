@@ -2366,7 +2366,6 @@ void load_xresources(void) {
 }
 
 void reload_xresources(const Arg *arg) {
-  // return;
   load_xresources();
   int i;
   for (i = 0; i < LENGTH(colors); i++)
