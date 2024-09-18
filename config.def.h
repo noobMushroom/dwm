@@ -159,8 +159,8 @@ static const Key keys[] = {
 
     // For gaps
     {MODKEY, XK_minus, setgaps, {.i = -1}},
-    {MODKEY | ShiftMask, XK_equal, setgaps, {.i = +1}},
-    {MODKEY | ShiftMask | ControlMask, XK_equal, setgaps, {.i = 0}},
+    {MODKEY, XK_plus, setgaps, {.i = +1}},
+    {MODKEY | ControlMask, XK_numbersign, setgaps, {.i = 5}},
     TAGKEYS(XK_ampersand, 0) TAGKEYS(XK_bracketleft, 1) TAGKEYS(XK_braceleft, 2)
         TAGKEYS(XK_braceright, 3) TAGKEYS(XK_parenleft, 4)
             TAGKEYS(XK_equal, 5){MODKEY | ShiftMask, XK_q, quit, {0}},
