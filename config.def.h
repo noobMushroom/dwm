@@ -40,7 +40,7 @@ static const Rule rules[] = {
      *	WM_NAME(STRING) = title
      */
     /* class      instance    title       tags mask     isfloating   monitor */
-    {"Gimp", NULL, NULL, 0, 1, 0, 0, -1},
+    // {"Gimp", NULL, NULL, 0, 1, 0, 0, -1},
     {"Firefox", NULL, NULL, 1 << 8, 0, 0, -1, -1},
     {"St", NULL, NULL, 0, 0, 1, 0, -1},
     {"feh", NULL, NULL, 0, 0, 1, 0, -1},
@@ -78,24 +78,16 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] =
     "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = {"~/.config/rofi/launchers/type-6/launcher.sh",
-                                 NULL};
+static const char *dmenucmd[] = {"dmenu_run", "-m", NULL};
 
-static const char *roficmd[] = {"rofi",
-                                "-show",
-                                "drun",
-                                "-theme",
-                                "~/.config/rofi/launchers/type-6/style-9.rasi",
-                                NULL};
+static const char *roficmd[] = {"rofi", "-show", "drun", NULL};
 static const char *termcmd[] = {"kitty", NULL};
 
 static const char *screenshot_full_screen[] = {
     "scrot", "-q", "1",
     "/home/mushroom/Pictures/screenshots/%Y-%m-%d-%H:%M:%S_$wx$h.png", NULL};
 
-static const char *screenshot_selection[] = {
-    "scrot", "-s",
-    "/home/mushroom/Pictures/screenshots/%Y-%m-%d-%H:%M:%S_$wx$h.png", NULL};
+static const char *screenshot_selection[] = {"flameshot", "gui", NULL};
 
 /*
  * Xresources preferences to load at startup
