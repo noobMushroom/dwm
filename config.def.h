@@ -151,7 +151,7 @@ static const Key keys[] = {
     {MODKEY | ControlMask, XK_p, spawn, SHCMD("~/.config/rofi/powermenu.sh")},
 
     // Brave
-    {MODKEY, XK_b, spawn, SHCMD("brave")},
+    {MODKEY, XK_b, spawn, SHCMD("firefox")},
 
     // for screenshots
     {0, XK_Print, spawn, {.v = screenshot_full_screen}},
