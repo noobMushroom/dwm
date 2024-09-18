@@ -40,7 +40,7 @@ static const Rule rules[] = {
      *	WM_NAME(STRING) = title
      */
     /* class      instance    title       tags mask     isfloating   monitor */
-    {"Gimp", NULL, NULL, 0, 1, 0, 0, -1},
+    // {"Gimp", NULL, NULL, 0, 1, 0, 0, -1},
     {"Firefox", NULL, NULL, 1 << 8, 0, 0, -1, -1},
     {"St", NULL, NULL, 0, 0, 1, 0, -1},
     {"feh", NULL, NULL, 0, 0, 1, 0, -1},
@@ -78,24 +78,16 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] =
     "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = {"~/.config/rofi/launchers/type-6/launcher.sh",
-                                 NULL};
+static const char *dmenucmd[] = {"dmenu_run", "-m", NULL};
 
-static const char *roficmd[] = {"rofi",
-                                "-show",
-                                "drun",
-                                "-theme",
-                                "~/.config/rofi/launchers/type-6/style-9.rasi",
-                                NULL};
+static const char *roficmd[] = {"rofi", "-show", "drun", NULL};
 static const char *termcmd[] = {"kitty", NULL};
 
 static const char *screenshot_full_screen[] = {
     "scrot", "-q", "1",
     "/home/mushroom/Pictures/screenshots/%Y-%m-%d-%H:%M:%S_$wx$h.png", NULL};
 
-static const char *screenshot_selection[] = {
-    "scrot", "-s",
-    "/home/mushroom/Pictures/screenshots/%Y-%m-%d-%H:%M:%S_$wx$h.png", NULL};
+static const char *screenshot_selection[] = {"flameshot", "gui", NULL};
 
 /*
  * Xresources preferences to load at startup
@@ -111,29 +103,29 @@ ResourcePref resources[] = {
 
 static const Key keys[] = {
     /* modifier                     key        function        argument */
-    {MODKEY, XK_p, spawn, {.v = roficmd}},
+    {MODKEY, XK_l, spawn, {.v = roficmd}},
     {MODKEY | ShiftMask, XK_Return, spawn, {.v = termcmd}},
-    {MODKEY | ShiftMask, XK_b, togglebar, {0}},
-    {MODKEY, XK_j, focusstack, {.i = +1}},
-    {MODKEY, XK_k, focusstack, {.i = -1}},
-    {MODKEY, XK_i, incnmaster, {.i = +1}},
-    {MODKEY, XK_d, incnmaster, {.i = -1}},
-    {MODKEY, XK_h, setmfact, {.f = -0.05}},
-    {MODKEY, XK_l, setmfact, {.f = +0.05}},
+    {MODKEY | ShiftMask, XK_n, togglebar, {0}},
+    {MODKEY, XK_h, focusstack, {.i = +1}},
+    {MODKEY, XK_t, focusstack, {.i = -1}},
+    {MODKEY, XK_c, incnmaster, {.i = +1}},
+    {MODKEY, XK_e, incnmaster, {.i = -1}},
+    {MODKEY, XK_d, setmfact, {.f = -0.05}},
+    {MODKEY, XK_n, setmfact, {.f = +0.05}},
     {MODKEY, XK_Return, zoom, {0}},
     {MODKEY, XK_Tab, view, {0}},
-    {MODKEY | ShiftMask, XK_c, killclient, {0}},
-    {MODKEY, XK_t, setlayout, {.v = &layouts[0]}},
-    {MODKEY, XK_f, setlayout, {.v = &layouts[1]}},
+    {MODKEY | ShiftMask, XK_j, killclient, {0}},
+    {MODKEY, XK_y, setlayout, {.v = &layouts[0]}},
+    {MODKEY, XK_u, setlayout, {.v = &layouts[1]}},
     {MODKEY, XK_m, setlayout, {.v = &layouts[2]}},
     {MODKEY, XK_space, setlayout, {0}},
     {MODKEY | ShiftMask, XK_space, togglefloating, {0}},
-    {MODKEY, XK_0, view, {.ui = ~0}},
-    {MODKEY | ShiftMask, XK_0, tag, {.ui = ~0}},
-    {MODKEY, XK_comma, focusmon, {.i = -1}},
-    {MODKEY, XK_period, focusmon, {.i = +1}},
-    {MODKEY | ShiftMask, XK_comma, tagmon, {.i = -1}},
-    {MODKEY | ShiftMask, XK_period, tagmon, {.i = +1}},
+    {MODKEY, XK_bracketright, view, {.ui = ~0}},
+    {MODKEY | ShiftMask, XK_bracketright, tag, {.ui = ~0}},
+    {MODKEY, XK_w, focusmon, {.i = -1}},
+    {MODKEY, XK_v, focusmon, {.i = +1}},
+    {MODKEY | ShiftMask, XK_w, tagmon, {.i = -1}},
+    {MODKEY | ShiftMask, XK_v, tagmon, {.i = +1}},
 
     // For volume controls
     {0, XF86XK_AudioRaiseVolume, spawn,
@@ -153,13 +145,13 @@ static const Key keys[] = {
     {MODKEY, XK_x, spawn, SHCMD("slock")},
 
     // Keepassxc
-    {MODKEY | ShiftMask, XK_p, spawn, SHCMD("keepassxc")},
+    {MODKEY | ShiftMask, XK_l, spawn, SHCMD("keepassxc")},
 
     // Powermenu
-    {MODKEY | ControlMask, XK_p, spawn, SHCMD("~/.config/rofi/powermenu.sh")},
+    {MODKEY | ControlMask, XK_l, spawn, SHCMD("~/.config/rofi/powermenu.sh")},
 
     // Brave
-    {MODKEY, XK_b, spawn, SHCMD("brave")},
+    {MODKEY, XK_b, spawn, SHCMD("firefox")},
 
     // for screenshots
     {0, XK_Print, spawn, {.v = screenshot_full_screen}},
@@ -167,10 +159,11 @@ static const Key keys[] = {
 
     // For gaps
     {MODKEY, XK_minus, setgaps, {.i = -1}},
-    {MODKEY, XK_equal, setgaps, {.i = +1}},
-    {MODKEY | ShiftMask, XK_equal, setgaps, {.i = 0}},
-    TAGKEYS(XK_1, 0) TAGKEYS(XK_2, 1) TAGKEYS(XK_3, 2) TAGKEYS(XK_4, 3)
-        TAGKEYS(XK_5, 4) TAGKEYS(XK_6, 5){MODKEY | ShiftMask, XK_q, quit, {0}},
+    {MODKEY | ShiftMask, XK_equal, setgaps, {.i = +1}},
+    {MODKEY | ShiftMask | ControlMask, XK_equal, setgaps, {.i = 0}},
+    TAGKEYS(XK_ampersand, 0) TAGKEYS(XK_bracketleft, 1) TAGKEYS(XK_braceleft, 2)
+        TAGKEYS(XK_braceright, 3) TAGKEYS(XK_parenleft, 4)
+            TAGKEYS(XK_equal, 5){MODKEY | ShiftMask, XK_q, quit, {0}},
 };
 
 /* button definitions */
