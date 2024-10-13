@@ -120,8 +120,8 @@ static const Key keys[] = {
     {MODKEY, XK_m, setlayout, {.v = &layouts[2]}},
     {MODKEY, XK_space, setlayout, {0}},
     {MODKEY | ShiftMask, XK_space, togglefloating, {0}},
-    {MODKEY, XK_bracketright, view, {.ui = ~0}},
-    {MODKEY | ShiftMask, XK_bracketright, tag, {.ui = ~0}},
+    {MODKEY, XK_0, view, {.ui = ~0}},
+    {MODKEY | ShiftMask, XK_0, tag, {.ui = ~0}},
     {MODKEY, XK_w, focusmon, {.i = -1}},
     {MODKEY, XK_v, focusmon, {.i = +1}},
     {MODKEY | ShiftMask, XK_w, tagmon, {.i = -1}},
@@ -158,12 +158,11 @@ static const Key keys[] = {
     {ControlMask, XK_Print, spawn, {.v = screenshot_selection}},
 
     // For gaps
-    {MODKEY, XK_minus, setgaps, {.i = -1}},
-    {MODKEY, XK_plus, setgaps, {.i = +1}},
-    {MODKEY | ControlMask, XK_numbersign, setgaps, {.i = 5}},
-    TAGKEYS(XK_ampersand, 0) TAGKEYS(XK_bracketleft, 1) TAGKEYS(XK_braceleft, 2)
-        TAGKEYS(XK_braceright, 3) TAGKEYS(XK_parenleft, 4)
-            TAGKEYS(XK_equal, 5){MODKEY | ShiftMask, XK_q, quit, {0}},
+    {MODKEY, XK_bracketleft, setgaps, {.i = -1}},
+    {MODKEY, XK_bracketright, setgaps, {.i = +1}},
+    {MODKEY | ControlMask, XK_bracketright, setgaps, {.i = 5}},
+    TAGKEYS(XK_1, 0) TAGKEYS(XK_2, 1) TAGKEYS(XK_3, 2) TAGKEYS(XK_4, 3)
+        TAGKEYS(XK_5, 4) TAGKEYS(XK_6, 5){MODKEY | ShiftMask, XK_q, quit, {0}},
 };
 
 /* button definitions */
